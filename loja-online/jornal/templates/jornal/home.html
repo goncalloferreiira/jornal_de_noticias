@@ -1,12 +1,19 @@
-<h1>Jornal de Notícias</h1>
-<hr>
-{% for artigo in artigos %}
-    <div style="margin-bottom: 20px;">
-        <h2>{{ artigo.titulo }}</h2>
-        <p><small>publicado em: {{ artigo.data_publicacao }}</small></p>
-        <p>{{ artigo.corpo|linebreaks }}</p>
+{% extends 'jornal/base.html' %}
+
+{% block content %}
+<h1 class="mb-4">Últimas Notícias</h1>
+<div class="row">
+    {% for artigo in artigos %}
+    <div class="col-md-6 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title h4">{{ artigo.titulo }}</h2>
+                <p class="text-muted small">{{ artigo.data_publicacao|date:"d/m/Y H:i" }}</p>
+                <p class="card-text">{{ artigo.corpo|truncatewords:20 }}</p>
+                <a href="{% url 'detalhe' artigo.id %}" class="btn btn-outline-primary btn-sm">Ler mais</a>
+            </div>
+        </div>
     </div>
-    <hr>
-{% empty %}
-    <p>ainda não há notícias publicadas.</p>
-{% endfor %}
+    {% endfor %}
+</div>
+{% endblock %}
