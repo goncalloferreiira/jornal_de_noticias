@@ -1,0 +1,12 @@
+<h1>Jornal de Notícias</h1>
+<hr>
+{% for artigo in artigos %}
+    <div style="margin-bottom: 20px;">
+        <h2>{{ artigo.titulo }}</h2>
+        <p><small>publicado em: {{ artigo.data_publicacao }}</small></p>
+        <p>{{ artigo.corpo|linebreaks }}</p>
+    </div>
+    <hr>
+{% empty %}
+    <p>ainda não há notícias publicadas.</p>
+{% endfor %}

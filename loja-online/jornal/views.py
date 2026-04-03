@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Artigo # Importa os teus modelos
 
 def home(request):
-    return HttpResponse("<h1>O Jornal de Notícias está online.</h1>")
+    # Vai buscar todos os artigos da base de dados
+    artigos = Artigo.objects.all().order_by('-data_publicacao') 
+    return render(request, 'jornal/home.html', {'artigos': artigos})
