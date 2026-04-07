@@ -8,6 +8,10 @@
     <div class="lead" style="white-space: pre-line;">
         {{ artigo.corpo }}
     </div>
-    <a href="{% url 'home' %}" class="btn btn-secondary mt-5">Voltar à lista</a>
+    
+    <div class="mt-5">
+        <a href="{% url 'comentarios' artigo.id %}" class="btn btn-primary">Ver Comentários</a>
+        <a href="{% url 'home' %}" class="btn btn-secondary ms-2">Voltar à lista</a>
+    </div>
 </article>
 {% endblock %}

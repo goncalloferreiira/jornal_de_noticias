@@ -1,0 +1,41 @@
+{% extends 'jornal/base.html' %}
+
+{% block content %}
+<div class="mb-4">
+    <h2 class="h4 text-muted">Comentários sobre:</h2>
+    <h1 class="fw-bold">{{ artigo.titulo }}</h1>
+</div>
+<hr>
+
+<div class="card bg-light mb-5 shadow-sm">
+    <div class="card-body">
+        <form method="POST" action="{% url 'comentarios' artigo.id %}">
+            {% csrf_token %} <div class="mb-3">
+                <label for="texto" class="form-label fw-bold">O teu comentário:</label>
+                <textarea class="form-control" id="texto" name="texto" rows="3" placeholder="Escreve aqui a tua opinião..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Submeter Comentário</button>
+        </form>
+    </div>
+</div>
+
+<h3 class="mb-3">Comentários da Comunidade</h3>
+{% for comentario in comentarios %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <p class="card-text">{{ comentario.texto }}</p>
+            <footer class="blockquote-footer mt-2">
+                Publicado em <cite title="Source Title">{{ comentario.data_criacao|date:"d/m/Y H:i" }}</cite>
+            </footer>
+        </div>
+    </div>
+{% empty %}
+    <div class="alert alert-info">
+        Ainda não há comentários.
+    </div>
+{% endfor %}
+
+<div class="mt-4 mb-5">
+    <a href="{% url 'detalhe' artigo.id %}" class="btn btn-secondary">Voltar ao Artigo</a>
+</div>
+{% endblock %}
